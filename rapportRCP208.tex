@@ -1,0 +1,122 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Wenneker Assignment
+% LaTeX Template
+
+% Version 2.0 (12/1/2019)
+%
+% This template originates from:
+% http://www.LaTeXTemplates.com
+%
+% Authors:
+% Vel (vel@LaTeXTemplates.com)
+% Frits Wenneker
+%
+% License:
+% CC BY-NC-SA 3.0 (http://creativecommons.org/licenses/by-nc-sa/3.0/)
+% 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%----------------------------------------------------------------------------------------
+%	PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
+%----------------------------------------------------------------------------------------
+
+\documentclass[12pt]{scrartcl} % Font size
+
+\input{structure.tex} % Include the file specifying the document structure and custom commands
+\usepackage{hyperref}
+ 
+\urlstyle{same}
+%----------------------------------------------------------------------------------------
+%	TITLE SECTION
+%----------------------------------------------------------------------------------------
+
+\title{	
+	\normalfont\normalsize
+	\textsc{CNAM}\\ % Your university, school and/or department name(s)
+	\vspace{25pt} % Whitespace
+	\rule{\linewidth}{0.5pt}\\ % Thin top horizontal rule
+	\vspace{20pt} % Whitespace
+	{\huge Projet RCP208 : Compte Rendu TD}\\ % The assignment title
+	\vspace{12pt} % Whitespace
+	\rule{\linewidth}{2pt}\\ % Thick bottom horizontal rule
+	\vspace{12pt} % Whitespace
+}
+
+\author{\LARGE Jérôme Petit} % Your name
+
+\date{\normalsize\today} % Today's date (\today) or a custom date
+
+\begin{document}
+
+\maketitle % Print the title
+
+
+\section{TD K-means}
+\subsection{CR : variable uniforme}
+Je génère 500 variables uniformes auquel j'associe 5 étiquettes (1,2,3,4,5), ci dessous un exemple de données générées~:
+\newline
+\begin{figure}[!h]
+ \centering 
+\includegraphics[scale=.5]{uniform.png}
+\end{figure}
+\newline
+En appliquant une classification par K-means avec les paramètres : n\_init=1, nb\_clusters =5 et initialisation : k-means++, on obtient les données suivantes : 
+\newline
+\begin{figure}[!h]
+ \centering 
+\includegraphics[scale=.5]{uniformKmeans.png}
+\end{figure}
+\newline
+Afin de déterminer la qualité de la classification j'ai utilisé la métrique de Rand ajusté et de Jacquard. Pour l'échantillon précédent je trouve une valeur de 0.0059947710270688665 pour Rand ajusté et 0.176 pour Jacquard. Les valeurs obtenues sont très faibles par rapport à des données normales et séparés. Cette valeur faible provient du faite qu'il n'y a pas de cluster apparent, il est donc impossible d'avoir une séparation cohérente des données. 
+
+Les résultats obtenues sont stables, en effet en faisant 10 classifications, on obtient les résultats suivant~: indice de Rand ajusté : moyenne 0.0048179719511162265 et écart type :0.0025297897570419775
+
+Si l'on utilise la même approche pour la génération de variables normales (on génére les variables puis on les sépare afin d'avoir des clusters) alors on a les données suivantes :
+\newline
+\begin{figure}[!h]
+ \centering 
+\includegraphics[scale=.3]{unifor_lag.png}
+\end{figure}
+\newline
+En appliquant une classification par K-means avec les paramètres : n\_init=1, nb\_clusters =5 et initialisation : k-means++, on obtient les données suivantes : 
+\newline
+\begin{figure}[!h]
+ \centering 
+\includegraphics[scale=.3]{uniform_lagKmeans.png}
+\end{figure}
+\newline
+Dans ce cas on obtient des résultats légèrement meilleur à ceux obtenues par variables normales. Ce résultat est cohérent avec la méthode K-means. Cette méthode détecte les clusters et n'est pas sensible à la distribution des variables. Les résultats sont donc légèrement meilleur car on a  dans le cas uniforme les clusters sont plus disjoint que dans le cas normale. Pour les variables uniformes après avoir fait 10 classification K-means (avec initialisation k-means++, nb\_cluster=5 et n\_init=1) j'obtiens un indice de rand ajusté en moyenne de 1.0 et d'écart type 0.0.
+\subsection{CR : Texture}
+En appliquant le l'approche K-means avec 11 cluster, une initialisation K-means++ et n\_init=1, on obtient un score de Rand ajusté 0.46479949030200746. Ce qui est faible. Cela vient du fait que l'on utilise l'algorithme K-means sur des données ayant 40 variables. Afin de réduire ce nombre de variable et de faire apparaitre les axes contenant l'information nécessaire on utilise une approche discriminante. En utilisant 10 axes, on obtient les ratio de variances suivant : axe 1 : 45.86\%, axe 2 : 24.24\%, axe 3 : 9.65\% , axe 4 : 6.94\%, axe 5 :  5.54\% , axe 6 : 2.42\%, axe 7 :
+ 2.26\%, axe 8 : 1.56\% axe 9 : 0.84\% et l'axe 10: 0.68\%. CE qui signifie que les 5 premiers axes représente 90\% de la variance. Grace à l'analyse factoriel on s'est ramené à 10 variables. En appliquant alors le même algorithme K-means on a cette fois ci un score de Rand ajusté de 0.9956363636363637. Afin de déterminé quel est la projection optimal j'ai réalisé la méthode classification pour des nombres de composants allant de 1 à 20. Le score de rand ajusté obtenu par le K-means est le suivant : 
+\newline
+\begin{figure}[!h]
+ \centering 
+\includegraphics[scale=.3]{AFD_K_means.png}
+\end{figure}
+\newline 
+Ainsi une AFD à 8 composants va donner un résultat similaire à une AFD à 20 composants. Ci dessous est le jeu de données initial projeté sur les 3 premiers axes~: 
+\newline
+\begin{figure}[!h]
+ \centering 
+\includegraphics[scale=.5]{init.png}
+\end{figure}
+\newline 
+
+On ne voit pas apparaitre clairement de cluster. A l'aide de l'AFD on va pouvoir changer le nombre de variables tout en préservant la dispersion en utilisant 8 axes~:
+\newline
+\begin{figure}[!h]
+ \centering 
+\includegraphics[scale=.5]{AFD8.png}
+\end{figure}
+\newline 
+
+Les clusters apparaissent plus clairement en utilisant une classification K-means avec 11 clusters et une initialisation K-means++, on obtient la classification suivante~:
+\newline
+\begin{figure}[!h]
+ \centering 
+\includegraphics[scale=.5]{kmeans_AFD8.png}
+\end{figure}
+\newline 
+
+\end{document}
