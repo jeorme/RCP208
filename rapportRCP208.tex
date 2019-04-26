@@ -118,5 +118,43 @@ Les clusters apparaissent plus clairement en utilisant une classification K-mean
 \includegraphics[scale=.5]{kmeans_AFD8.png}
 \end{figure}
 \newline 
-
+\section{Classification spectrale}
+\subsection{Variable uniforme}
+Comme pour le TD K-means j'ai généré des données suivant la loi uniform  [0,1]. Ci dessous se trouve les données générées : 
+\newline
+\begin{figure}[!h]
+ \centering 
+\includegraphics[scale=.5]{unifSpectrale.png}
+\end{figure}
+\newline 
+En appliquant l'analyse spectrale sur les données en utilisant la méthodes de proches voisins pour la création de la matrice de similiarité on remarque une instabilité des résultats. Ci dessous se trouve les valeurs de l'indice de rand ajusté en fonction du nombre n\_neigboorhood choisi (entre 1 et 20) : 
+\newline
+\begin{figure}[!h]
+ \centering 
+\includegraphics[scale=.5]{spectralUnifNN.png}
+\end{figure}
+\newline 
+Par contre comme dans le cas normal on observe une tres bonne classification par le noyau rbf pour des valeurs de $\gamma\leq 8$ (indice de rand ajusté vaut 1). La classification est moins stable pour des valeurs de $\gamma >8$. 
+\newline
+\begin{figure}[!h]
+ \centering 
+\includegraphics[scale=.5]{spectralUnifRBF.png}
+\end{figure}
+\newline 
+L'approche par K-means est beaucoup plus stable que l'analyse spectrale avec l'approche par K-means on a un indice de rand ajusté de 1.0 avec une initialisation k-means++. L'approche k-means est de meilleur qualité avec une initialisation k-means++ car les cluster sont disjoints ce qui rend adapté pour cette méthode. De plus l'analyse spectrale donne de moins bon résultats pour gamma > 8 car il y a trop de composantes connexes. Pour des valeurs inférieur à 8 les résultats sont similaire à l'approche k-means.
+\subsection{données : Texture}
+Sans appliquer l'AFD afin de réduire la dimension, la classification spectrale avec la méthode des proches voisins et n\_neighborhood=9$\approx$ log(5500)+1 donne un indice de rand ajusté de 0.6007141289011186. Afin d'améliorer ce résultat, j'utilise une AFD qui va réduire la nombre de variables afin de les regrouper de la plus explicative à la moins. Ce critère est donné par la variance. Comme pour l'étude K-means, nous observons que 8 composantes donne un résultat similaire à 20 composantes. En appliquant une méthode spectrale après avoir appliqué une AFD à 8 composantes. on obtient la classification suivante (projection sur les 3 premières composantes)
+\newline
+\begin{figure}[!h]
+ \centering 
+\includegraphics[scale=.5]{spectraleAFD.png}
+\end{figure}
+\newline 
+Avec 8 composantes pour l'AFD et la méthode spectrale par proche voisin (n\_neighborhood = 9) on obtient un indice de rand ajusté de 0.8146208480795527. Contrairement à la méthode K-means la stabilité des résultats est moindre, cela vient du nombre de composante connexe en jeu. Ci dessous la valeur de l'indice de rand ajusté en fonction du nombre de composant dans l'AFD (la méthode spectrale utilisée est proche voisin avec 9 voisins)
+\newline
+\begin{figure}[!h]
+ \centering 
+\includegraphics[scale=.3]{metricsAFDNN.png}
+\end{figure}
+\newline 
 \end{document}
