@@ -157,4 +157,48 @@ Avec 8 composantes pour l'AFD et la méthode spectrale par proche voisin (n\_nei
 \includegraphics[scale=.3]{metricsAFDNN.png}
 \end{figure}
 \newline 
+\section{TD : mélange de densité}
+En utilisant 100 données et 2 composantes la densité obtenue est proche de la vraie densité, la valeur de la log vraisemblance est de -2.0139415707841097~:
+\newline
+\begin{figure}[!h]
+ \centering 
+\includegraphics[scale=.3]{densite100.png}
+\end{figure}
+\newline 
+En augmentant le nombre d'échantillon : N=10000, on obtient une log vraisemblance de : -2.011940707075323. La densité obtenue correspond exactement à la vrai densité : 
+\newline
+\begin{figure}[!h]
+ \centering 
+\includegraphics[scale=.3]{densite10000.png}
+\end{figure}
+\newline 
+Étant donné que la qualité de l'estimation pour N=10000 est sensiblement meilleur que pour N=100, j'ai étudié l'évolution de la log vraisemblance en fonction du nombre de composante pour N=100. Ci dessous le graphe de la log vraisemblance en fonction du nombre de composantes utilisées dans l'estimation (entre 1 et 20) : 
+\newline
+\begin{figure}[!h]
+ \centering 
+\includegraphics[scale=.3]{log100.png}
+\end{figure}
+\newline 
+On observe que plus le nombre de composantes plus la log vraisemblance augmente. MAis l'augmentation du nombre de composantes nécessite plus de données en effet pour N=100 on a~:
+\newline
+\begin{figure}[!h]
+ \centering 
+\includegraphics[scale=.3]{densite8cpt.png}
+\end{figure}
+\newline 
+En utilisant 10000 données l'approximation est meilleure qualité mais l'approximation reste de moins bonne qualité que celle obtenue avec 2 composantes~:
+\newline
+\begin{figure}[!h]
+ \centering 
+\includegraphics[scale=.3]{densite8cpt10000.png}
+\end{figure}
+\newline  
+\subsection{critere AIC}
+En utilisant diag au lieu de full dans l'estimation, on obtient la même classification les minimum des critères AIC et BIC sont obtenues pour 3 composantes. Dans le cas diag le minimum AIC est plus faible que dans le cas full~:
+\newline
+\begin{figure}[!h]
+ \centering 
+\includegraphics[scale=.4]{barAIC.png}
+\end{figure}
+\newline  
 \end{document}
