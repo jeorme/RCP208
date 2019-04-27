@@ -1,3 +1,4 @@
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Wenneker Assignment
 % LaTeX Template
@@ -57,38 +58,36 @@ Je génère 500 variables uniformes auquel j'associe 5 étiquettes (1,2,3,4,5), 
 \newline
 \begin{figure}[!h]
  \centering 
-\includegraphics[scale=.5]{uniform.png}
+\includegraphics[scale=.3]{uniform.png}
 \end{figure}
 \newline
-En appliquant une classification par K-means avec les paramètres : n\_init=1, nb\_clusters =5 et initialisation : k-means++, on obtient les données suivantes : 
+En appliquant une classification par K-means avec les paramètres : n\_init=1, nb\_clusters =5 et une initialisation : k-means++, on obtient la classification suivante~: 
 \newline
 \begin{figure}[!h]
  \centering 
-\includegraphics[scale=.5]{uniformKmeans.png}
+\includegraphics[scale=.3]{uniformKmeans.png}
 \end{figure}
 \newline
-Afin de déterminer la qualité de la classification j'ai utilisé la métrique de Rand ajusté et de Jacquard. Pour l'échantillon précédent je trouve une valeur de 0.0059947710270688665 pour Rand ajusté et 0.176 pour Jacquard. Les valeurs obtenues sont très faibles par rapport à des données normales et séparés. Cette valeur faible provient du faite qu'il n'y a pas de cluster apparent, il est donc impossible d'avoir une séparation cohérente des données. 
-
-Les résultats obtenues sont stables, en effet en faisant 10 classifications, on obtient les résultats suivant~: indice de Rand ajusté : moyenne 0.0048179719511162265 et écart type :0.0025297897570419775
-
-Si l'on utilise la même approche pour la génération de variables normales (on génére les variables puis on les sépare afin d'avoir des clusters) alors on a les données suivantes :
+Afin de déterminer la qualité de la classification j'ai utilisé la métrique de Rand ajusté et de Jacquard. Pour l'échantillon précédent je trouve une valeur de 0.0059947710270688665 pour Rand ajusté et 0.176 pour Jacquard. Les valeurs obtenues sont très faibles par rapport à des données suivant une normale et séparées. Cette valeur faible provient du faite qu'il n'y a pas de cluster apparent, il est donc impossible d'avoir une séparation efficace par cluster des données. Malgré cela, Les résultats obtenues sont stables, en effet en faisant 10 classifications, on obtient les résultats suivant~: indice de Rand ajusté : moyenne 0.0048179719511162265 et écart type :0.0025297897570419775
+\newline
+Si l'on utilise la même approche pour la génération de variables normales (on génère les variables puis on les sépare afin d'avoir des clusters) alors on a les données suivantes :
 \newline
 \begin{figure}[!h]
  \centering 
 \includegraphics[scale=.3]{unifor_lag.png}
 \end{figure}
 \newline
-En appliquant une classification par K-means avec les paramètres : n\_init=1, nb\_clusters =5 et initialisation : k-means++, on obtient les données suivantes : 
+En appliquant une classification par K-means avec les paramètres : n\_init=1, nb\_clusters =5 et initialisation : k-means++, on obtient la classification suivante~:
 \newline
 \begin{figure}[!h]
  \centering 
 \includegraphics[scale=.3]{uniform_lagKmeans.png}
 \end{figure}
 \newline
-Dans ce cas on obtient des résultats légèrement meilleur à ceux obtenues par variables normales. Ce résultat est cohérent avec la méthode K-means. Cette méthode détecte les clusters et n'est pas sensible à la distribution des variables. Les résultats sont donc légèrement meilleur car on a  dans le cas uniforme les clusters sont plus disjoint que dans le cas normale. Pour les variables uniformes après avoir fait 10 classification K-means (avec initialisation k-means++, nb\_cluster=5 et n\_init=1) j'obtiens un indice de rand ajusté en moyenne de 1.0 et d'écart type 0.0.
+Dans ce cas, on obtient des résultats légèrement meilleur à ceux obtenues par variables normales. Ce résultat est cohérent avec la méthode K-means. Cette méthode détecte les clusters et n'est pas sensible à la distribution des variables. Les résultats sont donc légèrement meilleur car on a  dans le cas uniforme les clusters sont plus disjoint que dans le cas normale (variance plus faible). Pour les variables uniformes après avoir fait 10 classification K-means (avec initialisation k-means++, nb\_cluster=5 et n\_init=1) j'obtiens un indice de rand ajusté en moyenne de 1.0 et d'écart type 0.0.
 \subsection{CR : Texture}
-En appliquant le l'approche K-means avec 11 cluster, une initialisation K-means++ et n\_init=1, on obtient un score de Rand ajusté 0.46479949030200746. Ce qui est faible. Cela vient du fait que l'on utilise l'algorithme K-means sur des données ayant 40 variables. Afin de réduire ce nombre de variable et de faire apparaitre les axes contenant l'information nécessaire on utilise une approche discriminante. En utilisant 10 axes, on obtient les ratio de variances suivant : axe 1 : 45.86\%, axe 2 : 24.24\%, axe 3 : 9.65\% , axe 4 : 6.94\%, axe 5 :  5.54\% , axe 6 : 2.42\%, axe 7 :
- 2.26\%, axe 8 : 1.56\% axe 9 : 0.84\% et l'axe 10: 0.68\%. CE qui signifie que les 5 premiers axes représente 90\% de la variance. Grace à l'analyse factoriel on s'est ramené à 10 variables. En appliquant alors le même algorithme K-means on a cette fois ci un score de Rand ajusté de 0.9956363636363637. Afin de déterminé quel est la projection optimal j'ai réalisé la méthode classification pour des nombres de composants allant de 1 à 20. Le score de rand ajusté obtenu par le K-means est le suivant : 
+En appliquant l'approche K-means avec 11 cluster, une initialisation K-means++ et n\_init=1, on obtient un score de Rand ajusté de 0.46479949030200746. La classification obtenue n'est pas de bonne qualité. Cela vient du fait que l'on utilise l'algorithme K-means sur des données ayant 40 variables. Afin de réduire ce nombre de variables et de faire apparaitre les axes contenant l'information nécessaire on utilise une approche discriminante. En utilisant 10 axes, on obtient les ratio de variances suivant : axe 1 : 45.86\%, axe 2 : 24.24\%, axe 3 : 9.65\% , axe 4 : 6.94\%, axe 5 :  5.54\% , axe 6 : 2.42\%, axe 7 :
+ 2.26\%, axe 8 : 1.56\% axe 9 : 0.84\% et l'axe 10: 0.68\%. Ce qui signifie que les 5 premiers axes représente 90\% de la variance. Grâce à l'analyse factoriel on s'est ramené à 10 variables. En appliquant alors le même algorithme K-means, on a cette fois ci un score de Rand ajusté de 0.9956363636363637. Afin de déterminé quel est la projection optimal j'ai réalisé la méthode classification pour des nombres de composants allant de 1 à 20. Le score de rand ajusté obtenu par le K-means est le suivant : 
 \newline
 \begin{figure}[!h]
  \centering 
@@ -99,15 +98,15 @@ Ainsi une AFD à 8 composants va donner un résultat similaire à une AFD à 20 
 \newline
 \begin{figure}[!h]
  \centering 
-\includegraphics[scale=.5]{init.png}
+\includegraphics[scale=.3]{init.png}
 \end{figure}
 \newline 
 
-On ne voit pas apparaitre clairement de cluster. A l'aide de l'AFD on va pouvoir changer le nombre de variables tout en préservant la dispersion en utilisant 8 axes~:
+On ne voit pas apparaitre clairement de cluster. A l'aide de l'AFD on va pouvoir réduire le nombre de variables à 8 tout en préservant la dispersion~:
 \newline
 \begin{figure}[!h]
  \centering 
-\includegraphics[scale=.5]{AFD8.png}
+\includegraphics[scale=.3]{AFD8.png}
 \end{figure}
 \newline 
 
@@ -115,7 +114,7 @@ Les clusters apparaissent plus clairement en utilisant une classification K-mean
 \newline
 \begin{figure}[!h]
  \centering 
-\includegraphics[scale=.5]{kmeans_AFD8.png}
+\includegraphics[scale=.3]{kmeans_AFD8.png}
 \end{figure}
 \newline 
 \section{Classification spectrale}
@@ -127,30 +126,30 @@ Comme pour le TD K-means j'ai généré des données suivant la loi uniform  [0,
 \includegraphics[scale=.5]{unifSpectrale.png}
 \end{figure}
 \newline 
-En appliquant l'analyse spectrale sur les données en utilisant la méthodes de proches voisins pour la création de la matrice de similiarité on remarque une instabilité des résultats. Ci dessous se trouve les valeurs de l'indice de rand ajusté en fonction du nombre n\_neigboorhood choisi (entre 1 et 20) : 
+En appliquant l'analyse spectrale sur les données en utilisant la méthodes de proches voisins pour la création de la matrice de similarité on remarque une instabilité des résultats. Ci dessous se trouve les valeurs de l'indice de Rand ajusté en fonction du nombre n\_neighbors choisi (entre 1 et 20) : 
 \newline
 \begin{figure}[!h]
  \centering 
-\includegraphics[scale=.5]{spectralUnifNN.png}
+\includegraphics[scale=.3]{spectralUnifNN.png}
 \end{figure}
 \newline 
-Par contre comme dans le cas normal on observe une tres bonne classification par le noyau rbf pour des valeurs de $\gamma\leq 8$ (indice de rand ajusté vaut 1). La classification est moins stable pour des valeurs de $\gamma >8$. 
+Par contre comme dans le cas normal on observe une très bonne classification par le noyau rbf pour des valeurs de $\gamma\leq 8$ (indice de rand ajusté vaut 1). La classification est moins stable pour des valeurs de $\gamma >8$. 
 \newline
 \begin{figure}[!h]
  \centering 
-\includegraphics[scale=.5]{spectralUnifRBF.png}
+\includegraphics[scale=.3]{spectralUnifRBF.png}
 \end{figure}
 \newline 
-L'approche par K-means est beaucoup plus stable que l'analyse spectrale avec l'approche par K-means on a un indice de rand ajusté de 1.0 avec une initialisation k-means++. L'approche k-means est de meilleur qualité avec une initialisation k-means++ car les cluster sont disjoints ce qui rend adapté pour cette méthode. De plus l'analyse spectrale donne de moins bon résultats pour gamma > 8 car il y a trop de composantes connexes. Pour des valeurs inférieur à 8 les résultats sont similaire à l'approche k-means.
+L'approche par K-means est beaucoup plus stable que l'analyse spectrale. En effet, on a un indice de rand ajusté de 1.0 avec une initialisation k-means++. L'approche k-means est de meilleur qualité avec une initialisation k-means++ car les cluster sont disjoints ce qui est un cas adapté pour cette méthode. De plus l'analyse spectrale donne de moins bon résultats pour gamma > 8 car il y a trop de composantes connexes. Pour des valeurs inférieur à 8 les résultats sont similaire à l'approche k-means.
 \subsection{données : Texture}
-Sans appliquer l'AFD afin de réduire la dimension, la classification spectrale avec la méthode des proches voisins et n\_neighborhood=9$\approx$ log(5500)+1 donne un indice de rand ajusté de 0.6007141289011186. Afin d'améliorer ce résultat, j'utilise une AFD qui va réduire la nombre de variables afin de les regrouper de la plus explicative à la moins. Ce critère est donné par la variance. Comme pour l'étude K-means, nous observons que 8 composantes donne un résultat similaire à 20 composantes. En appliquant une méthode spectrale après avoir appliqué une AFD à 8 composantes. on obtient la classification suivante (projection sur les 3 premières composantes)
+Sans appliquer l'AFD afin de réduire la dimension, la classification spectrale avec la méthode des proches voisins et n\_neighbors=9$\approx$ log(5500)+1 donne un indice de Rand ajusté de 0.6007141289011186. Afin d'améliorer ce résultat, j'utilise une AFD qui va réduire la nombre de variables afin de les regrouper de la plus explicative à la moins explicative (ce critère est donné par la variance). Comme pour l'étude K-means, nous observons que 8 composantes donne un résultat similaire à 20 composantes. En appliquant une méthode spectrale après avoir appliqué une AFD à 8 composantes. Avec ses conditions on obtient un indice de Rand ajsuté de : 0.8146208480795527 et la classification suivante (projection sur les 3 premières composantes)
 \newline
 \begin{figure}[!h]
  \centering 
 \includegraphics[scale=.5]{spectraleAFD.png}
 \end{figure}
 \newline 
-Avec 8 composantes pour l'AFD et la méthode spectrale par proche voisin (n\_neighborhood = 9) on obtient un indice de rand ajusté de 0.8146208480795527. Contrairement à la méthode K-means la stabilité des résultats est moindre, cela vient du nombre de composante connexe en jeu. Ci dessous la valeur de l'indice de rand ajusté en fonction du nombre de composant dans l'AFD (la méthode spectrale utilisée est proche voisin avec 9 voisins)
+Contrairement à la méthode K-means la stabilité des résultats est moindre, cela vient du nombre de composantes connexes en jeu. Ci dessous la valeur de l'indice de Rand ajusté en fonction du nombre de composantes de l'AFD (la méthode spectrale utilisée est celle des proches voisins avec 9 voisins)
 \newline
 \begin{figure}[!h]
  \centering 
@@ -172,21 +171,32 @@ En augmentant le nombre d'échantillon : N=10000, on obtient une log vraisemblan
 \includegraphics[scale=.3]{densite10000.png}
 \end{figure}
 \newline 
-Étant donné que la qualité de l'estimation pour N=10000 est sensiblement meilleur que pour N=100, j'ai étudié l'évolution de la log vraisemblance en fonction du nombre de composante pour N=100. Ci dessous le graphe de la log vraisemblance en fonction du nombre de composantes utilisées dans l'estimation (entre 1 et 20) : 
+Étant donné que la qualité de l'estimation pour N=10000 est équivalente à celle pour N=100, j'ai étudié l'évolution de la log vraisemblance en fonction du nombre de composantes pour N=100. Ci dessous le graphe de la log vraisemblance en fonction du nombre de composantes utilisées dans l'estimation (entre 1 et 20) : 
 \newline
 \begin{figure}[!h]
  \centering 
 \includegraphics[scale=.3]{log100.png}
 \end{figure}
 \newline 
-On observe que plus le nombre de composantes plus la log vraisemblance augmente. MAis l'augmentation du nombre de composantes nécessite plus de données en effet pour N=100 on a~:
+\newline
+\newline
+\newline 
+\newline
+\newline
+\newline 
+\newline
+\newline
+\newline 
+\newline
+\newline
+On observe que plus le nombre de composantes  augmente plus la log vraisemblance augmente. Mais l'augmentation du nombre de composantes nécessite plus de données en effet pour N=100 et 8 composantes on a~:
 \newline
 \begin{figure}[!h]
  \centering 
 \includegraphics[scale=.3]{densite8cpt.png}
 \end{figure}
 \newline 
-En utilisant 10000 données l'approximation est meilleure qualité mais l'approximation reste de moins bonne qualité que celle obtenue avec 2 composantes~:
+En utilisant 10000 données et 8 composantes l'approximation est meilleure qualité mais l'approximation reste de moins bonne qualité que celle obtenue avec 2 composantes~:
 \newline
 \begin{figure}[!h]
  \centering 
@@ -194,11 +204,22 @@ En utilisant 10000 données l'approximation est meilleure qualité mais l'approx
 \end{figure}
 \newline  
 \subsection{critere AIC}
-En utilisant diag au lieu de full dans l'estimation, on obtient la même classification les minimum des critères AIC et BIC sont obtenues pour 3 composantes. Dans le cas diag le minimum AIC est plus faible que dans le cas full~:
+En utilisant \textit{diag} au lieu de \textit{full} dans l'estimation, on obtient la même classification, en effet les minimum des critères AIC et BIC sont obtenues pour 3 composantes. Dans le cas \textit{diag} le minimum AIC est plus faible que dans le cas \textit{full}~:
 \newline
 \begin{figure}[!h]
  \centering 
-\includegraphics[scale=.4]{barAIC.png}
+\includegraphics[scale=.3]{barAIC.png}
 \end{figure}
-\newline  
+\newline 
+\subsection{Textures}
+La nombre de composantes est de 8 alors que le nombre de classes est de 11. Cette différence vient du fait que l'algorithme EM n'arrive pas à séparer certaine classes entre elles. En utilisant 8 composantes on a la solution optimale selon les critères AIC et BIC, cela signifie optimal au sens de la log vraisemblance et de la complexité des modèles. Ainsi si l'on augmente le nombre de composant  l'opposée de la log-vraisemblance diminue moins que la complexité ainsi la valeur d'AIC et BIC augmente. Ainsi si l'on augmente le nombre de composantes à 11 on aura un modèle qui aura une meilleur log-vraisemblance que 8 mais cet écart dans la log-vraisemblance est moindre que l'augmentation de la complexité.
+
+En utilisant une AFD sur les 2 premiers paramètre, le profil des critères AIC est le suivant : 
+\newline
+\begin{figure}[!h]
+ \centering 
+\includegraphics[scale=.4]{AICAFD.png}
+\end{figure}
+\newline 
+La valeur du critère est minimum pour 12 composantes et se stabilise à partir de 10. L'utilisation de l'AFD permet de réduire la dimension et de pouvoir utiliser des modèles plus complexes avec une meilleur précision. Cela est du au fait que les données projetées obtenues par l'AFD sont bien séparées il est donc plus facile pour le modèles de mélange de déterminer la distribution sur chacun des cluster. Si les données sont mélangées et donc ayant une région d'intersection plus grande, l'approche par mélange gaussien donnera de moins bon résultat et ne permettra pas de bien déterminer les distributions sur les zones d'intersection. C'est pourquoi on a 8 composants dans le premier et 11 avec l'AFD.
 \end{document}
